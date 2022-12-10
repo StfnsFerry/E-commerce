@@ -16,8 +16,6 @@ def get_data():
 
     i=0 
     for result in toko['items']:
-        # index += 1
-        # print(f"[{index}] {result['item_basic']['name']}")
         data[i] = {
             'itemid' : result['itemid'],
             'name' : result['item_basic']['name'],
