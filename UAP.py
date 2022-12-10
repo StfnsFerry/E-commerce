@@ -26,15 +26,22 @@ def get_data():
     return data
 
 def product_list(data):
+    print('\n')
     for x in data:
         print(f"[{x+1}] {data[x]['name']}")
 
 def get_detail(index,data):
     index -= 1
-    print(f"[Item ID]\t: {data[index]['itemid']}")
+    print(f"\n[Item ID]\t: {data[index]['itemid']}")
     print(f"[Nama Produk]\t: {data[index]['name']}")
-    print(f"[Price]\t\t: Rp {data[index]['price']}")
+    print(f"[Price]\t\t: Rp {data[index]['price']}\n")
     
+def payment(index,qty,data):
+    index -= 1
+    harga = int(data[index]['price']*qty) 
+    print(f'\nQty : {qty}')
+    print(f'Total Harga : Rp {harga}')
+
 
 if __name__ == '__main__':
 
@@ -44,8 +51,10 @@ if __name__ == '__main__':
     if pilih == 1 :
         data = get_data()
         product_list(data) 
-        choice = int(input("Pilih : "))
-        get_detail(choice,data)
+        index = int(input("\nPilih : "))
+        get_detail(index,data)
+        qty = int(input('Jumlah Beli : '))
+        payment(index,qty,data)
 
 
 
