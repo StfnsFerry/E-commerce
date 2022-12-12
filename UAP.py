@@ -104,7 +104,8 @@ def menu() :
         elif qty <= 0 :
             print("Jumlah beli tidak dapat diproses.")
             menu()
-        payment(index,qty,data)
+         else:
+            payment(index,qty,data)
                                                           
     except ValueError :
         print("Inputan Salah!")   
