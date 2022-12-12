@@ -1,5 +1,5 @@
 import json, requests
-# import API_iBox 
+import API_iBox 
 import os, time
 # from Tampilan import hias
 
@@ -97,9 +97,9 @@ def menu() :
         product_list(data) 
         index = int(input("\nPilih : "))
         get_detail(index,data)
-        qty = int(input('Jumlah Beli : '))  
-        if qty > data[index]['stock'] :
-            print(f"Stok Tidak Cukup!\n[Stock]\t\t: {data[index]['stock']}")
+        qty = int(input('Jumlah Beli\t : '))  
+        if qty > data[index-1]['stock'] :
+            print(f"Stok Tidak Cukup!\n[Stock]\t\t: {data[index-1]['stock']}")
             menu()
         elif qty <= 0 :
             print("Jumlah beli tidak dapat diproses.")
@@ -159,11 +159,11 @@ def payment(index,qty,data):
     harga = int(data[index]['price']*qty) 
     print(f'\nQty : {qty}')
     print(f'Total Harga : Rp {harga}')
-    if alamat == '' :
+    if alamat == 'none' :
         alamat = input('Masukkan Alamat : ') 
     else :
         print(f'Alamat Pengiriman : {alamat}')
-        alamat = ''
+        # alamat = ''
         ubah = input("Ubah Alamat? (y/t) ")
         change = ubah.lower()
         if change == 'y' :
@@ -198,6 +198,3 @@ def payment(index,qty,data):
             print()
    
 login()
-
-
-    
