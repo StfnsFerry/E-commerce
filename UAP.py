@@ -172,7 +172,7 @@ def payment(index,qty,data):
     if co == 'Y' :
         os.system('cls')
         hias.co()
-        data[index]['stock'] = 0
+        data[index]['stock'] -= qty
         print('\n[BERHASIL MELAKUKAN CHECKOUT]\n')
         print(f'[Nama Akun]\t\t: {unem}\n')
         print(f"[Nama Barang]\t\t: {data[index]['name']}")
