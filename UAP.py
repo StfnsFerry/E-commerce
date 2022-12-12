@@ -1,4 +1,26 @@
 import json, requests
+# import API_iBox 
+import os, time
+# from Tampilan import hias
+
+jihan = {'username' : 'jihannhayaa', 
+         'password' : '2117051095',
+         'alamat' : 'Jl. Soekarno - Hatta No.114, Delima, Kec. Tampan, Kota Pekanbaru, Riau 28292'}
+
+ferry = {'username' : 'stfnsferry', 
+         'password' : '2117051001',
+         'alamat' : 'Jl. Teuku Umar Jl. Sultan Agung No.1, Labuhan Ratu, Kec. Kedaton, Kota Bandar Lampung, Lampung 35132'}
+
+abiy = {'username' : 'abiqyanisa', 
+        'password' : '2117051088',
+        'alamat' : 'Jl. BSD Raya Utama, Pagedangan, Kec. Pagedangan, Kabupaten Tangerang, Banten 15345'}
+
+new = {'username' : 'none',
+       'password' : 'none',
+       'alamat' : 'none'}
+
+user = [jihan,ferry,abiy,new]
+unem, alamat = '',''
 
 iphone = 31530154
 ipad = 31530572
@@ -26,7 +48,9 @@ def get_data(id):
             data[i] = {
                 'itemid' : result['itemid'],
                 'name' : result['name'],
-                'price' : int(result['price']/100000)
+                'price' : int(result['price']/100000),
+                'image' : result['image'],
+                'stock' : result['stock']
             }
             i+=1
         return data
@@ -42,8 +66,11 @@ def get_detail(index,data):
     index -= 1
     print(f"\n[Item ID]\t: {data[index]['itemid']}")
     print(f"[Nama Produk]\t: {data[index]['name']}")
-    print(f"[Price]\t\t: Rp {data[index]['price']}\n")
-    
+    print(f"[Price]\t\t: Rp {data[index]['price']}")
+    print(f"[Stock]\t\t: {data[index]['stock']}\n")
+    print("[SEE IMAGE] :")
+    print(f"https://cf.shopee.co.id/file/{data[index]['image']}\n")
+
 def menu() :
     try:
         pilih = int(input("Ibox Official Shop\n [1] iPhone \n [2] iPad\n [3] Apple Watch\n [4] Mac\n [5] Aksesoris Apple\n Pilih : "))
@@ -86,11 +113,13 @@ def login() :
     global user, unem, alamat
     os.system('cls')
     # hias.shopee()
-    print('[1] LOG IN')
+    print('\n[1] LOG IN')
     print('[2] SIGN UP')
     akun = int(input('\nMasuk dengan : '))
     if akun == 1 :
-        unem = input('Username\t: ')
+        os.system('cls')
+        # hias.log()
+        unem = input('\nUsername\t: ')
         pw = input('Password\t: ')
         for cek in user :
             if cek['username'] == unem  and cek['password'] == pw :
@@ -99,7 +128,8 @@ def login() :
                 menu()   
                 quit()           
         else :
-            print('Harap Masukkan Username atau Password yang terdaftar!')
+            os.system('cls')
+            print('\nHarap Masukkan Username atau Password yang terdaftar!')
             time.sleep(2)
             login()
     elif akun == 2 :
@@ -121,7 +151,8 @@ def login() :
         print("Harap Masuk dengan 1 atau 2.")
         time.sleep(2)
         login()
-        
+
+
 def payment(index,qty,data):
     global unem, alamat
     index -= 1
@@ -169,69 +200,4 @@ def payment(index,qty,data):
 login()
 
 
-# if __name__ == '__main__':
-
-#     try:
-#         pilih = int(input("Ibox Official Shop\n 1. iPhone \n 2. iPad\n 3. Apple Watch\n 4. Mac\n 5. Aksesoris Apple\n Pilih : "))
-#         if pilih == 1 :
-#             data = get_data(iphone)
-#             product_list(data)
-#             index = int(input("\nPilih : "))
-#             try:
-#                 get_detail(index,data)
-#                 qty = int(input('Jumlah Beli : '))
-#                 payment(index,qty,data)
-#             except:
-#                 print("Barang tidak ada!")    
-
-#         elif pilih == 2 : 
-#             data = get_data(ipad)
-#             product_list(data) 
-#             index = int(input("\nPilih : "))
-#             try:
-#                 get_detail(index,data)
-#                 qty = int(input('Jumlah Beli : '))
-#                 payment(index,qty,data)
-#             except:
-#                 print("Barang tidak ada!")
-
-#         elif pilih == 3 : 
-#             data = get_data(iwatch)
-#             product_list(data) 
-#             index = int(input("\nPilih : "))
-#             try:
-#                 get_detail(index,data)
-#                 qty = int(input('Jumlah Beli : '))
-#                 payment(index,qty,data)
-#             except:
-#                 print("Barang tidak ada!")   
-
-#         elif pilih == 4 : 
-#             data = get_data(mac)
-#             product_list(data) 
-#             index = int(input("\nPilih : "))
-#             try:
-#                 get_detail(index,data)
-#                 qty = int(input('Jumlah Beli : '))
-#                 payment(index,qty,data)
-#             except:
-#                 print("Barang tidak ada!")
-
-#         elif pilih == 5 : 
-#             data = get_data(aksesoris)
-#             product_list(data) 
-#             index = int(input("\nPilih : "))
-#             try:
-#                 get_detail(index,data)
-#                 qty = int(input('Jumlah Beli : '))
-#                 payment(index,qty,data)
-#             except:
-#                 print("Barang tidak ada!")   
-
-#         else:
-#             print("Kategori Tidak Ada!")                                                  
-#     except:
-#         print("Inputan Salah!")   
-        
-        
-        
+    
