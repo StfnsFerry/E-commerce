@@ -8,7 +8,7 @@ jihan = {'username' : 'jihannhayaa',
          'alamat' : 'Jl. Soekarno - Hatta No.114, Delima, Kec. Tampan, Kota Pekanbaru, Riau 28292'}
 
 ferry = {'username' : 'stfnsferry', 
-         'password' : '2117051001',
+         'password' : '2117051025',
          'alamat' : 'Jl. Teuku Umar Jl. Sultan Agung No.1, Labuhan Ratu, Kec. Kedaton, Kota Bandar Lampung, Lampung 35132'}
 
 abiy = {'username' : 'abiqyanisa', 
