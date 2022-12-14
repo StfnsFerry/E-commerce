@@ -6,7 +6,7 @@ jihan = {'username' : 'jihannhayaa',
          'alamat' : 'Jl. Soekarno - Hatta No.114, Delima, Kec. Tampan, Kota Pekanbaru, Riau 28292'}
 
 ferry = {'username' : 'stfnsferry', 
-         'password' : '2117051001',
+         'password' : '2117051025',
          'alamat' : 'Jl. Teuku Umar Jl. Sultan Agung No.1, Labuhan Ratu, Kec. Kedaton, Kota Bandar Lampung, Lampung 35132'}
 
 abiy = {'username' : 'abiqyanisa', 
@@ -155,10 +155,10 @@ def payment(index,qty,data):
     hias.co()
     index -= 1
     harga = int(data[index]['price']*qty) 
-    print(f"\n[Nama Barang]\t: {data[index]['name']}")
-    print(f'[Jumlah Barang]\t: {qty}')
-    print(f'[Total Harga]\t: Rp {harga}')
-    if alamat == '' :
+    print(f"\n[Nama Barang]\t\t: {data[index]['name']}")
+    print(f'[Jumlah Barang]\t\t: {qty}')
+    print(f'[Total Harga]\t\t: Rp {harga}')
+    if alamat == 'none' :
         alamat = input('\n[Masukkan Alamat]\t: ') 
     else :
         print(f'\n[Alamat Pengiriman]\t: {alamat}')
@@ -176,9 +176,9 @@ def payment(index,qty,data):
         print('\n[BERHASIL MELAKUKAN CHECKOUT]\n')
         print(f'[Nama Akun]\t\t: {unem}\n')
         print(f"[Nama Barang]\t\t: {data[index]['name']}")
-        print(f"[Harga Barang]\t\t: {data[index]['price']}")
+        print(f"[Harga Barang]\t\t: Rp {data[index]['price']}")
         print(f'[Jumlah Barang]\t\t: {qty}')
-        print(f'[Total Harga]\t\t: Rp.{harga}\n')
+        print(f'[Total Harga]\t\t: Rp {harga}\n')
         print(f'[Alamat Pengiriman]\t: {alamat}')
 
         bukti = input("\nIngin mengunduh bukti transaksi?\n[Y/T] : ")
@@ -187,7 +187,7 @@ def payment(index,qty,data):
             file = open("Shopee Transaction.txt","w")
             file.write("[SHOPEE CHECKOUT]\n\n")
 
-            file.write(f'[Nama Akun]\t\t: {unem}\n')
+            file.write(f'[Nama Akun]\t\t\t: {unem}\n')
             file.write(f"[Nama Barang]\t\t: {data[index]['name']}\n")
             file.write(f"[Harga Barang]\t\t: {data[index]['price']}\n")
             file.write(f'[Jumlah Barang]\t\t: {qty}\n')
