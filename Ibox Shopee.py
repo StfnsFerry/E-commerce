@@ -162,17 +162,17 @@ def menu() :
             hias.error()
             time.sleep(2)
     
-def payment(index, qty, data):
+def payment(index,qty,data):
 
     global unem, alamat
     os.system('cls')
     hias.co()
     index -= 1
     harga = int(data[index]['price']*qty) 
-    print(f"\n[Nama Barang]\t: {data[index]['name']}")
-    print(f'[Jumlah Barang]\t: {qty}')
-    print(f'[Total Harga]\t: Rp {harga}')
-    if alamat == '' :
+    print(f"\n[Nama Barang]\t\t: {data[index]['name']}")
+    print(f'[Jumlah Barang]\t\t: {qty}')
+    print(f'[Total Harga]\t\t: Rp {harga}')
+    if alamat == 'none' :
         alamat = input('\n[Masukkan Alamat]\t: ') 
     else :
         print(f'\n[Alamat Pengiriman]\t: {alamat}')
@@ -209,7 +209,7 @@ def payment(index, qty, data):
                         if unduh != 'Y' and unduh != 'T' :
                             raise ValueError
                         elif unduh == 'Y' :
-                            file = open("Shopee Transaction.txt","w")
+                            file = open(f"Shopee Transaction {data[index]['name']}.txt","w")
                             file.write("[SHOPEE CHECKOUT]\n\n")
                             file.write(f'[Nama Akun]\t\t\t: {unem}\n')
                             file.write(f"[Nama Barang]\t\t: {data[index]['name']}\n")
@@ -245,7 +245,8 @@ def main() :
             if jawab != 'Y' and jawab != 'T' :
                 raise ValueError
             if jawab == 'Y' :
-                login()
+                os.system('cls')
+                menu()
             if jawab == 'T' :
                 os.system('cls')
                 hias.bye()
