@@ -34,7 +34,65 @@ def get_detail(index,data):
     print("[SEE IMAGE] :")
     print(f"https://cf.shopee.co.id/file/{data[index]['image']}\n")
 
+def login() :
+    global user, unem, alamat
+    while True :
+        os.system('cls')
+        hias.shopee()
+        print('\n[1] LOG IN')
+        print('[2] SIGN UP')
+        print('[3] EXIT')
+        try :
+            akun = int(input('\nMasuk dengan : '))
+            if akun != 1 and akun != 2 and akun != 3 :
+                raise ValueError
+            if akun == 1 :
+                os.system('cls')
+                hias.log()
+                unem = input('\nUsername\t: ')
+                pw = input('Password\t: ')
+                for cek in user :
+                    if cek['username'] == unem  and cek['password'] == pw :
+                        alamat = cek['alamat']
+                        os.system('cls')
+                        menu() 
+                else :
+                    os.system('cls')
+                    hias.error()
+                    print('\nHarap Masukkan Username atau Password yang terdaftar!')
+                    time.sleep(2)
+                    login()
+            elif akun == 2 :
+                os.system('cls')
+                hias.sign()
+                unem = input('\nUsername\t: ')
+                pw = input('Password\t: ')
+                for cek in user :
+                    if cek['username'] == unem :
+                        os.system('cls')
+                        hias.error()
+                        print('Username sudah digunakan!')
+                        time.sleep(2)
+                        login()
+                else :
+                    new['username'] = unem
+                    new['password'] = pw
+                    user.append(new)
+                    print('\nAkun tersimpan!\nSilahkan login')
+                    time.sleep(2)
+                    login()
+            elif akun == 3 :
+                os.system('cls')
+                hias.bye()
+                quit()
+        except ValueError:
+            os.system('cls')
+            hias.error()
+            print('\nMasukan anda tidak sesuai')
+            time.sleep(2)
+
 def menu() :
+
     while True :
         hias.ibox()
         try :
@@ -54,7 +112,7 @@ def menu() :
             os.system('cls')
             break
         except  ValueError:
-            os.system('cls')
+            print()
             hias.error()
             print("\nMasukan anda tidak sesuai.")
             time.sleep(2)
@@ -102,80 +160,19 @@ def menu() :
         except ValueError:
             print()
             hias.error()
-            time.sleep(2)   
-
-def login() :
-    global user, unem, alamat
-    os.system('cls')
-    hias.shopee()
-    print('\n[1] LOG IN')
-    print('[2] SIGN UP')
-    print('[3] EXIT')
-    try :
-        akun = int(input('\nMasuk dengan : '))
-    except :
-        os.system('cls')
-        hias.error()
-        print('\nHarap masukkan angka.')
-        time.sleep(2)
-        login()
-    if akun == 1 :
-        os.system('cls')
-        hias.log()
-        unem = input('\nUsername\t: ')
-        pw = input('Password\t: ')
-        for cek in user :
-            if cek['username'] == unem  and cek['password'] == pw :
-                alamat = cek['alamat']
-                os.system('cls')
-                menu()   
-                quit()           
-        else :
-            os.system('cls')
-            hias.error()
-            print('\nHarap Masukkan Username atau Password yang terdaftar!')
             time.sleep(2)
-            login()
-    elif akun == 2 :
-        os.system('cls')
-        hias.sign()
-        unem = input('\nUsername\t: ')
-        pw = input('Password\t: ')
-        for cek in user :
-            if cek['username'] == unem :
-                os.system('cls')
-                hias.error()
-                print('Username sudah digunakan!')
-                time.sleep(2)
-                login()
-        else :
-            new['username'] = unem
-            new['password'] = pw
-            user.append(new)
-            print('\nAkun tersimpan!\nSilahkan login')
-            time.sleep(2)
-            login()
-    elif akun == 3 :
-        os.system('cls')
-        hias.bye()
-        quit()
-    else :
-        os.system('cls')
-        hias.error()
-        print("\nHarap Masuk dengan 1 atau 2.")
-        time.sleep(3)
-        login()
     
-def payment(index,qty,data):
+def payment(index, qty, data):
+
     global unem, alamat
     os.system('cls')
     hias.co()
     index -= 1
     harga = int(data[index]['price']*qty) 
-    print(f"\n[Nama Barang]\t\t: {data[index]['name']}")
-    print(f'[Jumlah Barang]\t\t: {qty}')
-    print(f'[Total Harga]\t\t: Rp {harga}')
-    if alamat == 'none' :
+    print(f"\n[Nama Barang]\t: {data[index]['name']}")
+    print(f'[Jumlah Barang]\t: {qty}')
+    print(f'[Total Harga]\t: Rp {harga}')
+    if alamat == '' :
         alamat = input('\n[Masukkan Alamat]\t: ') 
     else :
         print(f'\n[Alamat Pengiriman]\t: {alamat}')
@@ -183,36 +180,80 @@ def payment(index,qty,data):
         change = ubah.lower()
         if change == 'y' :
             alamat = input('\n[Masukkan Alamat]\t: ')
-    pil = input("\nCheckout?\n[Y/T] : ")
-    co = pil.upper()
-    print(co)
-    if co == 'Y' :
-        os.system('cls')
-        hias.co()
-        data[index]['stock'] -= qty
-        print('\n[BERHASIL MELAKUKAN CHECKOUT]\n')
-        print(f'[Nama Akun]\t\t: {unem}\n')
-        print(f"[Nama Barang]\t\t: {data[index]['name']}")
-        print(f"[Harga Barang]\t\t: Rp {data[index]['price']}")
-        print(f'[Jumlah Barang]\t\t: {qty}')
-        print(f'[Total Harga]\t\t: Rp {harga}\n')
-        print(f'[Alamat Pengiriman]\t: {alamat}')
-
-        bukti = input("\nIngin mengunduh bukti transaksi?\n[Y/T] : ")
-        unduh = bukti.upper()     
-        if unduh == 'Y' :
-            file = open("Shopee Transaction.txt","w")
-            file.write("[SHOPEE CHECKOUT]\n\n")
-
-            file.write(f'[Nama Akun]\t\t\t: {unem}\n')
-            file.write(f"[Nama Barang]\t\t: {data[index]['name']}\n")
-            file.write(f"[Harga Barang]\t\t: {data[index]['price']}\n")
-            file.write(f'[Jumlah Barang]\t\t: {qty}\n')
-            file.write(f'[Total Harga]\t\t: Rp.{harga}\n')
-            file.write(f'[Alamat Pengiriman]\t: {alamat}\n')
-            file.close()
+                
+    while True :
+        try :
+            pil = input("\nCheckout?\n[Y/T] : ")
+            co = pil.upper()
+            print(co)
+            if co != 'Y' and co != 'T' :
+                raise ValueError
+            elif co == 'T' :
+                os.system('cls')
+                menu()
+            elif co == 'Y' :
+                os.system('cls')
+                hias.co()
+                while True :
+                    data[index]['stock'] -= qty
+                    print('\n[BERHASIL MELAKUKAN CHECKOUT]\n')
+                    print(f'[Nama Akun]\t\t: {unem}\n')
+                    print(f"[Nama Barang]\t\t: {data[index]['name']}")
+                    print(f"[Harga Barang]\t\t: Rp {data[index]['price']}")
+                    print(f'[Jumlah Barang]\t\t: {qty}')
+                    print(f'[Total Harga]\t\t: Rp {harga}\n')
+                    print(f'[Alamat Pengiriman]\t: {alamat}')
+                    try :
+                        bukti = input("\nIngin mengunduh bukti transaksi?\n[Y/T] : ")
+                        unduh = bukti.upper()
+                        if unduh != 'Y' and unduh != 'T' :
+                            raise ValueError
+                        elif unduh == 'Y' :
+                            file = open("Shopee Transaction.txt","w")
+                            file.write("[SHOPEE CHECKOUT]\n\n")
+                            file.write(f'[Nama Akun]\t\t\t: {unem}\n')
+                            file.write(f"[Nama Barang]\t\t: {data[index]['name']}\n")
+                            file.write(f"[Harga Barang]\t\t: {data[index]['price']}\n")
+                            file.write(f'[Jumlah Barang]\t\t: {qty}\n')
+                            file.write(f'[Total Harga]\t\t: Rp.{harga}\n')
+                            file.write(f'[Alamat Pengiriman]\t: {alamat}\n')
+                            file.close()
+                            os.system('cls')
+                            hias.co()
+                            print("\nFile Sudah Diunduh.")
+                        elif unduh == 'T' :
+                            os.system('cls')
+                            hias.co()
+                        time.sleep(2)
+                        break
+                    except ValueError :
+                        os.system('cls')
+                        print()
+                        hias.error()
+                        time.sleep(2)
+                main()
+        except ValueError:
             os.system('cls')
-            hias.co()
-            print("\nFile Sudah Diunduh.")         
-   
+            hias.error()
+            time.sleep(2)
+
+def main() :
+    while True:
+        try :
+            ulang = input("\nIngin membeli lagi?\n[Y/T]")
+            jawab = ulang.upper()
+            if jawab != 'Y' and jawab != 'T' :
+                raise ValueError
+            if jawab == 'Y' :
+                login()
+            if jawab == 'T' :
+                os.system('cls')
+                hias.bye()
+                quit()
+        except ValueError :
+            os.system('cls')
+            hias.error()
+            print("\nMasukan anda tidak sesuai.")
+            time.sleep(2)    
+
 login()
